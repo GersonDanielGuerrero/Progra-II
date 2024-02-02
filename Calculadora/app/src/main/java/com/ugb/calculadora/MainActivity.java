@@ -24,7 +24,7 @@ TabHost tbh;
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_main);
 
-     /*
+     /*a
         tbh=findViewById(R.id.tbhconversor);
         tbh.setup();
         tbh.addTab(tbh.newTabSpec("LONGITUS").setContent(id.tabLongitud).setIndicator("LONGITUD",null));
