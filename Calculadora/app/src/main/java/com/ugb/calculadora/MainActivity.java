@@ -126,7 +126,7 @@ class conversores{
             {1000000,125000,1000,125,1,0.125,0.001,0.000125,0.000001,0.000000125},
             //VOLUMEN
             {1,4,8,128,256,768,3785.41,3.78541,15.7725, 0.00378541}
-    };//
+    };
     public  double convertir(int opcion,Spinner spnDe,Spinner spnA,EditText txtCantidad){
         int de =spnDe.getSelectedItemPosition();
         int a =spnA.getSelectedItemPosition();
