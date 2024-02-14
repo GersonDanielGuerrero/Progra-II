@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Respuesta: " + resp, Toast.LENGTH_LONG).show();
         }catch (Exception e){} }
         });
-        btn=findViewById(R.id.btnAlmacenamientoConvertir);
+        btn=findViewById(R.id.btnAlmacenamientoConvertir);///a
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
