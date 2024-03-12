@@ -1,7 +1,9 @@
 package com.ugb.calculadora;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -78,11 +80,43 @@ public class Lista_Productos extends AppCompatActivity {
                     parametros.putString("accion","modificar");
                     parametros.putStringArray("Productos", Productos);
                     abrirActividad(parametros);
+                case R.id.mnxEliminar:
+                    eliminarProducto();
+                    break;
             }
             return true;
         }catch (Exception e){
             mostrarMsg("Error en menu: "+ e.getMessage());
             return super.onContextItemSelected(item);
+        }
+    }
+    private void eliminarProducto(){
+        try {
+            AlertDialog.Builder confirmacion = new AlertDialog.Builder(Lista_Productos.this);
+            confirmacion.setTitle("Esta seguro de Eliminar a: ");
+            confirmacion.setMessage(cProductos.getString(1));
+
+            confirmacion.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    String respuesta = dbProductos.administrar_Productos("eliminar", new String[]{cProductos.getString(0),"","","","",""});
+                    if (respuesta.equals("ok")) {
+                        mostrarMsg("El producto ha sido eliminado con exito.");
+                        obtenerProductos();
+                    } else {
+                        mostrarMsg("Error al eliminar producto: " + respuesta);
+                    }
+                }
+            });
+            confirmacion.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            confirmacion.create().show();
+        }catch (Exception e){
+            mostrarMsg("Error al eliminar: "+ e.getMessage());
         }
     }
     private void abrirActividad(Bundle parametros){

@@ -1,5 +1,6 @@
 package com.ugb.calculadora;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,7 +11,7 @@ import androidx.annotation.Nullable;
 public class DB extends SQLiteOpenHelper {
     private static final String dbname = "db_Productos";
     private static final int v=1;
-    private static final String SQldb = "CREATE TABLE Productos(codigoProducto integer primary key autoincrement, nombre text, descripcion text, marca text, presentacion text, precio text)";
+    private static final String SQldb = "CREATE TABLE Productos(codigoProducto integer primary key autoincrement, nombre text, descripcion text, marca text, presentacion text, precio real)";
     public DB(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, dbname, factory, v);
     }
@@ -22,33 +23,30 @@ public class DB extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1){
         //para hacer la actualizacion de la BD
     }
-    public String agregarProducto(String nombre, String descripcion, String marca, String presentacion, double precio){
-        try {
 
-            return "ok";
-        }catch (Exception e){
-            return "Error: "+ e.getMessage();
-        }
-    }
-    public String eliminarProducto (int id){
-        try {
-            String[] whereArgs={String.valueOf(id)};
-this.getWritableDatabase().delete("Productos","codigoProducto = ?",whereArgs);
-            return "ok";
-        }catch (Exception e){
-            return "Error: "+ e.getMessage();
-        }
-    }
     public String administrar_Productos(String accion, String[] datos){
         try {
+            ContentValues valoresProducto = new ContentValues();
+            String[] whereArgs={String.valueOf(datos[0])};
+            String whereClause="codigoProducto = ?";
+            String miTabla="Productos";
+            valoresProducto.put("nombre",datos[1]);
+            valoresProducto.put("descripcion",datos[2]);
+            valoresProducto.put("marca",datos[3]);
+            valoresProducto.put("presentacion",datos[4]);
+            valoresProducto.put("precio",datos[5]);
             SQLiteDatabase db = getWritableDatabase();
-            if(accion.equals("nuevo")){
-                db.execSQL("INSERT INTO Productos(nombre,descripcion,marca,presentacion,precio) VALUES('"+ datos[1] +"','"+ datos[2] +"','"+ datos[3] +"','"+ datos[4] +"','"+ datos[5] +"')");
-            } else if (accion.equals("modificar")) {
-                db.execSQL("UPDATE Productos SET nombre='"+ datos[1] +"',descripcion='"+ datos[2] +"',marca='"+ datos[3] +"',presentacion='"+ datos[4] +"',precio='"+ datos[5] +"' WHERE codigoProducto='"+ datos[0] +"'");
-            } else if (accion.equals("eliminar")) {
-                db.execSQL("DELETE FROM Productos WHERE codigoProducto='"+ datos[0] +"'");
-            }
+           switch (accion){
+               case "nuevo":
+                   this.getWritableDatabase().insert(miTabla,null,valoresProducto);
+                   break;
+               case "modificar":
+                   this.getWritableDatabase().update(miTabla,valoresProducto,whereClause,whereArgs);
+                   break;
+               case "eliminar":
+                   this.getWritableDatabase().delete(miTabla,whereClause,whereArgs);
+                   break;
+           }
             return "ok";
         }catch (Exception e){
             return "Error: "+ e.getMessage();
