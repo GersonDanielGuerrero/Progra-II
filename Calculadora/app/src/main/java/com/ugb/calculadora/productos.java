@@ -8,14 +8,24 @@ public class productos {
     String marca;
     String presentacion;
     String precio;
+    String foto;
 
-    public productos(String idProducto, String nombre, String descripcion, String marca, String presentacion, String precio) {
+    public productos(String idProducto, String nombre, String descripcion, String marca, String presentacion, String precio, String foto) {
         this.codigoProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.marca = marca;
         this.presentacion = presentacion;
         this.precio = precio;
+        this.foto = foto;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getCodigoProducto() {

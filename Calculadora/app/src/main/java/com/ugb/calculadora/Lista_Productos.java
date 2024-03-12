@@ -72,10 +72,11 @@ public class Lista_Productos extends AppCompatActivity {
                     String Productos[] = {
                             cProductos.getString(0), //idProducto
                             cProductos.getString(1), //nombre
-                            cProductos.getString(2), //direccion
-                            cProductos.getString(3), //tel
-                            cProductos.getString(4), //email
-                            cProductos.getString(5) //dui
+                            cProductos.getString(2), //descripciom
+                            cProductos.getString(3), //marca
+                            cProductos.getString(4), //presentacion
+                            cProductos.getString(5),//precio
+                            cProductos.getString(6) //foto
                     };
                     parametros.putString("accion","modificar");
                     parametros.putStringArray("Productos", Productos);
@@ -99,7 +100,7 @@ public class Lista_Productos extends AppCompatActivity {
             confirmacion.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    String respuesta = dbProductos.administrar_Productos("eliminar", new String[]{cProductos.getString(0),"","","","",""});
+                    String respuesta = dbProductos.administrar_Productos("eliminar", new String[]{cProductos.getString(0)});
                     if (respuesta.equals("ok")) {
                         mostrarMsg("El producto ha sido eliminado con exito.");
                         obtenerProductos();
@@ -138,10 +139,11 @@ public class Lista_Productos extends AppCompatActivity {
                     misProductos = new productos(
                             cProductos.getString(0),//idProducto
                             cProductos.getString(1),//nombre
-                            cProductos.getString(2),//direccion
-                            cProductos.getString(3),//tel
-                            cProductos.getString(4),//email
-                            cProductos.getString(5)//dui
+                            cProductos.getString(2),//descripcion
+                            cProductos.getString(3),//marca
+                            cProductos.getString(4),//presentacion
+                            cProductos.getString(5),//precio
+                            cProductos.getString(6)//foto
                     );
                     alProductos.add(misProductos);
                 }while(cProductos.moveToNext());

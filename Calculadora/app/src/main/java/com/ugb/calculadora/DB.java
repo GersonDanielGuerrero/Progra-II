@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 public class DB extends SQLiteOpenHelper {
     private static final String dbname = "db_Productos";
     private static final int v=1;
-    private static final String SQldb = "CREATE TABLE Productos(codigoProducto integer primary key autoincrement, nombre text, descripcion text, marca text, presentacion text, precio real)";
+    private static final String SQldb = "CREATE TABLE Productos(codigoProducto integer primary key autoincrement, nombre text, descripcion text, marca text, presentacion text, precio real,foto text)";
     public DB(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, dbname, factory, v);
     }
@@ -29,12 +29,15 @@ public class DB extends SQLiteOpenHelper {
             ContentValues valoresProducto = new ContentValues();
             String[] whereArgs={String.valueOf(datos[0])};
             String whereClause="codigoProducto = ?";
-            String miTabla="Productos";
-            valoresProducto.put("nombre",datos[1]);
-            valoresProducto.put("descripcion",datos[2]);
-            valoresProducto.put("marca",datos[3]);
-            valoresProducto.put("presentacion",datos[4]);
-            valoresProducto.put("precio",datos[5]);
+            String miTabla = "Productos";
+            if (datos.length>1) {
+                valoresProducto.put("nombre", datos[1]);
+                valoresProducto.put("descripcion", datos[2]);
+                valoresProducto.put("marca", datos[3]);
+                valoresProducto.put("presentacion", datos[4]);
+                valoresProducto.put("precio", datos[5]);
+                valoresProducto.put("foto", datos[6]);
+            }
             SQLiteDatabase db = getWritableDatabase();
            switch (accion){
                case "nuevo":
