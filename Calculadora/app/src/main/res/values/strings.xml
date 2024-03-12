@@ -1,13 +1,4 @@
 <resources>
-    <string name="app_name">Calculadora</string>
-    <string-array name="spnopciones">
-        <item> Suma</item>
-        <item> Resta</item>
-        <item> Multiplicacion</item>
-        <item> Division</item>
-        <item> Potencia</item>
-        <item> Raiz</item>
-        <item> Porcenaje</item>
-        <item> Factorial</item>
-    </string-array>
+    <string name="app_name">Tienda Online</string>
+
 </resources>
