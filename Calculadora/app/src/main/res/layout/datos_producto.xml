@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Datos_Producto">
+
     <ImageButton
         android:id="@+id/imgProducto"
         android:layout_width="150dp"
@@ -15,11 +16,12 @@
         android:layout_marginStart="146dp"
         android:layout_marginTop="27dp"
         android:layout_marginRight="165dp"
-        android:src="@android:drawable/ic_menu_camera" />
+        android:backgroundTint="@color/dark_blue"
+        android:src="@drawable/foto" />
     <EditText
         android:id="@+id/txtnombre"
         android:layout_below="@id/imgProducto"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:hint="Nombre"
         android:inputType="textPersonName"
         android:layout_marginLeft="10dp"

@@ -1,5 +1,9 @@
 package com.ugb.calculadora;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
@@ -32,7 +36,7 @@ public class Datos_Producto extends AppCompatActivity {
     Button btn;
     FloatingActionButton btnRegresar;
     String accion="nuevo", id="", urlCompletaImg="";
-    Intent tomarFotoIntent;
+    Intent tomarFotoIntent,cargarFotoIntent;
     ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +104,29 @@ public class Datos_Producto extends AppCompatActivity {
             mostrarMsg("Error al mostrar la camara: "+ e.getMessage());
         }
     }
-    private void tomarFotoProducto(){
+    private void cargarFotoProducto(){
+        cargarFotoIntent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
+      if( cargarFotoIntent.resolveActivity(getPackageManager())!=null ){
+            File fotoProducto = null;
+            try{
+
+                fotoProducto = crearImagenProducto();
+                if( fotoProducto!=null ){
+                    Uri uriFotoProducto = FileProvider.getUriForFile(Datos_Producto.this, "com.ugb.calculadora.fileprovider", fotoProducto);
+                    cargarFotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriFotoProducto);
+                    startActivityForResult(cargarFotoIntent, 1);
+                }else{
+                    mostrarMsg("NO pude tomar la foto");
+                }
+            }catch (Exception e){
+                mostrarMsg("Error al tomar la foto: "+ e.getMessage());
+            }
+        }
+    }
+
+
+    private void tomarFotoProducto(){
         tomarFotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if( tomarFotoIntent.resolveActivity(getPackageManager())!=null ){
             File fotoProducto = null;
