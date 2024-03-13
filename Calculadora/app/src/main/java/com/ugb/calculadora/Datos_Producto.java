@@ -76,17 +76,20 @@ public class Datos_Producto extends AppCompatActivity {
 
                 tempVal = findViewById(R.id.txtPrecio);
                 String precio = tempVal.getText().toString();
-
-                DB db = new DB(getApplicationContext(),"", null, 1);
-                String[] datos = new String[]{id,nombre,descripcion,marca,presentacion,precio,urlCompletaImg};
-                String respuesta = db.administrar_Productos(accion, datos);
-                if( respuesta.equals("ok") ){
-                    Toast.makeText(getApplicationContext(), "Producto Registrado con Exito.", Toast.LENGTH_SHORT).show();
-                    regresarListaProductos();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Error: "+ respuesta, Toast.LENGTH_LONG).show();
+                if(!(nombre.equals("")||marca.equals("")||descripcion.equals("")||presentacion.equals("")||precio.equals(""))) {
+                    DB db = new DB(getApplicationContext(), "", null, 1);
+                    String[] datos = new String[]{id, nombre, descripcion, marca, presentacion, precio, urlCompletaImg};
+                    String respuesta = db.administrar_Productos(accion, datos);
+                    if (respuesta.equals("ok")) {
+                        Toast.makeText(getApplicationContext(), "Producto Registrado con Exito.", Toast.LENGTH_SHORT).show();
+                        regresarListaProductos();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Error: " + respuesta, Toast.LENGTH_LONG).show();
+                    }}else {
+                    Toast.makeText(getApplicationContext(), "Error: Hay campos vacíos" , Toast.LENGTH_LONG).show();
                 }
-            }
+}
+
         });
         mostrarDatosProductos();
     }
